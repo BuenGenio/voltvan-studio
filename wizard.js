@@ -85,7 +85,7 @@ const Wizard = (() => {
     return (I18N[lang] && I18N[lang][key]) || (I18N.en && I18N.en[key]) || key;
   };
 
-  const CURRENCY = { en: { sym: '£', loc: 'en-GB', rate: 1 }, es: { sym: '€', loc: 'es-ES', rate: 1.17 } };
+  const CURRENCY = { en: { sym: '£', loc: 'en-GB', rate: 1 }, es: { sym: '€', loc: 'es-ES', rate: 1.17 }, uk: { sym: '₴', loc: 'uk-UA', rate: 52.5 } };
 
   const fmtPrice = (p) => {
     const c = CURRENCY[getLang()] || CURRENCY.en;
