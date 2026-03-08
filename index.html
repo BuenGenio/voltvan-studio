@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanworks EV Office — Bespoke Electric Office Vans &amp; 4x4 Upgrades</title>
+  <meta name="description" content="Vanworks EV Office transforms vans into electric, spacious offices on wheels. Bespoke interior redesign, EV conversion, and 4x4 upgrades.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <style>
+    .lang-switcher{display:flex;gap:2px;padding:2px;border-radius:6px;background:rgba(255,255,255,.08);margin-right:auto;margin-left:1rem}
+    .lang-btn{padding:4px 10px;font-size:.6875rem;font-weight:600;font-family:'Space Grotesk',sans-serif;letter-spacing:.04em;border:none;border-radius:4px;background:transparent;color:rgba(255,255,255,.45);cursor:pointer;transition:all .25s ease}
+    .lang-btn.active{background:var(--accent,#c8ff00);color:#0a0a0a}
+    .lang-btn:hover:not(.active){color:rgba(255,255,255,.8)}
+    @media(max-width:768px){.lang-switcher{margin:0 0 0 auto;order:-1}}
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#" class="nav__logo">
+        <svg class="nav__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="8" fill="currentColor"/>
+          <path d="M22 8L12 22h7l-2 10 10-14h-7l2-10z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <span>Vanworks<span class="nav__logo-accent">EV</span></span>
+      </a>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+      <div class="nav__links" id="navLinks">
+        <a href="#services" class="nav__link" data-i18n="nav_services">Services</a>
+        <a href="#process" class="nav__link" data-i18n="nav_process">Process</a>
+        <a href="#gallery" class="nav__link" data-i18n="nav_gallery">Gallery</a>
+        <a href="#features" class="nav__link" data-i18n="nav_why">Why Us</a>
+        <a href="#testimonials" class="nav__link" data-i18n="nav_reviews">Reviews</a>
+        <a href="#contact" class="nav__link nav__link--cta" data-i18n="nav_cta">Get a Quote</a>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__grid"></div>
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+    </div>
+    <div class="hero__container">
+      <div class="hero__badge animate-in">
+        <span class="hero__badge-dot"></span>
+        <span data-i18n="hero_badge">Now booking Q2 2026 builds</span>
+      </div>
+      <h1 class="hero__title animate-in">
+        <span data-i18n="hero_title_1">Your van.</span><br>
+        <span class="hero__title-gradient" data-i18n="hero_title_grad">Electrified.</span><br>
+        <span data-i18n="hero_title_3">Your office, anywhere.</span>
+      </h1>
+      <p class="hero__subtitle animate-in" data-i18n="hero_sub">
+        We transform ordinary vans into fully electric, bespoke mobile offices
+        with 4x4 capability. Work from a mountain pass, a beach, or anywhere
+        the road takes you.
+      </p>
+      <div class="hero__actions animate-in">
+        <a href="#contact" class="btn btn--primary btn--lg">
+          <span data-i18n="hero_cta1">Start Your Build</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#services" class="btn btn--ghost btn--lg" data-i18n="hero_cta2">
+          Explore Services
+        </a>
+      </div>
+      <div class="hero__stats animate-in">
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="150">0</span><span class="hero__stat-suffix">+</span>
+          <span class="hero__stat-label" data-i18n="stat_builds_l">Builds completed</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="300">0</span><span class="hero__stat-suffix">mi</span>
+          <span class="hero__stat-label" data-i18n="stat_range_l">Avg EV range</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="100">0</span><span class="hero__stat-suffix">%</span>
+          <span class="hero__stat-label" data-i18n="stat_bespoke_l">Bespoke builds</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span data-i18n="hero_scroll">Scroll to explore</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="svc_tag">What we do</span>
+        <h2 class="section-title" data-i18n="svc_title">End-to-end van transformation</h2>
+        <p class="section-desc" data-i18n="svc_desc">From stripped shell to fully electric mobile office — we handle every detail of your build with precision engineering and bespoke craftsmanship.</p>
+      </div>
+      <div class="services__grid">
+        <div class="service-card animate-in">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M26 6L10 26h10l-2 16 16-20H24l2-16z" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title" data-i18n="svc_ev_h">EV Conversion</h3>
+          <p class="service-card__desc" data-i18n="svc_ev_p">Full electric drivetrain swap with high-capacity battery packs. 250-400 mile range depending on configuration. Zero emissions, maximum torque.</p>
+          <ul class="service-card__features" data-i18n-list="svc_ev_f">
+            <li>Custom battery architecture</li>
+            <li>Regenerative braking</li>
+            <li>DC fast charging capable</li>
+          </ul>
+        </div>
+        <div class="service-card service-card--featured animate-in">
+          <div class="service-card__badge" data-i18n="svc_off_badge">Most Popular</div>
+          <div class="service-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="14" width="36" height="24" rx="3"/>
+              <path d="M14 14V10a4 4 0 014-4h12a4 4 0 014 4v4"/>
+              <circle cx="24" cy="26" r="4"/>
+              <path d="M6 20h36"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title" data-i18n="svc_off_h">Office Interior</h3>
+          <p class="service-card__desc" data-i18n="svc_off_p">Ergonomic workspace with sit-stand desk, panoramic monitors, satellite internet, climate control, and premium materials throughout.</p>
+          <ul class="service-card__features" data-i18n-list="svc_off_f">
+            <li>Sit-stand motorised desk</li>
+            <li>Starlink connectivity</li>
+            <li>Whisper-quiet HVAC</li>
+          </ul>
+        </div>
+        <div class="service-card animate-in">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="36" r="6"/><circle cx="36" cy="36" r="6"/>
+              <path d="M18 36h12M12 30V18l6-6h12l6 6v12"/>
+              <path d="M18 12v6h12v-6"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title" data-i18n="svc_4x4_h">4x4 Upgrades</h3>
+          <p class="service-card__desc" data-i18n="svc_4x4_p">Go-anywhere capability with lifted suspension, all-terrain tyres, locking differentials, and underbody protection for true off-road freedom.</p>
+          <ul class="service-card__features" data-i18n-list="svc_4x4_f">
+            <li>2" lift kit with long-travel</li>
+            <li>BF Goodrich AT tyres</li>
+            <li>Skid plate protection</li>
+          </ul>
+        </div>
+        <div class="service-card animate-in">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 24C6 14 14 6 24 6s18 8 18 18"/>
+              <path d="M12 24c0-6.6 5.4-12 12-12s12 5.4 12 12"/>
+              <circle cx="24" cy="24" r="4"/>
+              <path d="M24 28v14M18 42h12"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title" data-i18n="svc_solar_h">Solar &amp; Power</h3>
+          <p class="service-card__desc" data-i18n="svc_solar_p">Roof-mounted solar array with lithium house battery bank. Power your office, devices, and appliances fully off-grid for days.</p>
+          <ul class="service-card__features" data-i18n-list="svc_solar_f">
+            <li>800W+ solar capacity</li>
+            <li>5kWh house battery</li>
+            <li>Pure sine wave inverter</li>
+          </ul>
+        </div>
+        <div class="service-card animate-in">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M24 4v8M4 24h8M44 24h-8M24 44v-8"/>
+              <path d="M10 10l6 6M38 10l-6 6M10 38l6-6M38 38l-6-6"/>
+              <circle cx="24" cy="24" r="8"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title" data-i18n="svc_design_h">Bespoke Design</h3>
+          <p class="service-card__desc" data-i18n="svc_design_p">Every build is unique. Choose your layout, materials, colour palette, and features. We 3D model your build before a single cut is made.</p>
+          <ul class="service-card__features" data-i18n-list="svc_design_f">
+            <li>Full 3D CAD design</li>
+            <li>Premium material library</li>
+            <li>VR walkthrough preview</li>
+          </ul>
+        </div>
+        <div class="service-card animate-in">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 40V20l16-12 16 12v20H8z"/>
+              <path d="M18 40V28h12v12"/>
+              <path d="M20 20h8"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title" data-i18n="svc_living_h">Living Quarters</h3>
+          <p class="service-card__desc" data-i18n="svc_living_p">Optional sleeping, kitchen, and wet-room modules so your office van doubles as a full-time adventure vehicle.</p>
+          <ul class="service-card__features" data-i18n-list="svc_living_f">
+            <li>Fold-away queen bed</li>
+            <li>Compact galley kitchen</li>
+            <li>Outdoor shower system</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="proc_tag">How it works</span>
+        <h2 class="section-title" data-i18n="proc_title">From concept to keys in 4 steps</h2>
+        <p class="section-desc" data-i18n="proc_desc">A transparent, collaborative build process that keeps you involved at every stage.</p>
+      </div>
+      <div class="process__timeline">
+        <div class="process__step animate-in">
+          <div class="process__step-number">01</div>
+          <div class="process__step-content">
+            <h3 data-i18n="proc_h1">Discovery Call</h3>
+            <p data-i18n="proc_p1">We learn how you work, where you travel, and what matters most. Remote workers, field engineers, creative nomads — every build starts with understanding your life.</p>
+          </div>
+        </div>
+        <div class="process__step animate-in">
+          <div class="process__step-number">02</div>
+          <div class="process__step-content">
+            <h3 data-i18n="proc_h2">3D Design &amp; Spec</h3>
+            <p data-i18n="proc_p2">Our design team creates a full 3D model of your van. Choose materials, layouts, and features in a VR walkthrough before we start building.</p>
+          </div>
+        </div>
+        <div class="process__step animate-in">
+          <div class="process__step-number">03</div>
+          <div class="process__step-content">
+            <h3 data-i18n="proc_h3">Precision Build</h3>
+            <p data-i18n="proc_p3">8-12 weeks of expert fabrication, electrical work, and fitout. Weekly photo and video updates keep you connected to every milestone.</p>
+          </div>
+        </div>
+        <div class="process__step animate-in">
+          <div class="process__step-number">04</div>
+          <div class="process__step-content">
+            <h3 data-i18n="proc_h4">Handover &amp; Support</h3>
+            <p data-i18n="proc_p4">Full walkthrough, training session, and documentation. Plus 2-year warranty and lifetime technical support on every build.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="gal_tag">Our work</span>
+        <h2 class="section-title" data-i18n="gal_title">Recent builds</h2>
+        <p class="section-desc" data-i18n="gal_desc">Each van is a one-of-one creation, purpose-built for its owner.</p>
+      </div>
+      <div class="gallery__grid">
+        <div class="gallery__item gallery__item--wide animate-in">
+          <div class="gallery__img">
+            <img src="images/highland-roamer.jpg" alt="The Highland Roamer — Mercedes Sprinter 4x4 with walnut interior" loading="lazy">
+          </div>
+          <div class="gallery__info">
+            <h3 data-i18n="gal_1_h">The Highland Roamer</h3>
+            <p data-i18n="gal_1_p">Mercedes Sprinter 4x4 — Full EV conversion, walnut interior, dual-monitor workspace</p>
+          </div>
+        </div>
+        <div class="gallery__item animate-in">
+          <div class="gallery__img">
+            <img src="images/studio-one.jpg" alt="Studio One — VW Crafter podcast studio with soundproofing" loading="lazy">
+          </div>
+          <div class="gallery__info">
+            <h3 data-i18n="gal_2_h">Studio One</h3>
+            <p data-i18n="gal_2_p">VW Crafter — Podcast studio with soundproofing</p>
+          </div>
+        </div>
+        <div class="gallery__item animate-in">
+          <div class="gallery__img">
+            <img src="images/the-summit.jpg" alt="The Summit — Ford Transit 4x4 at mountain overlook" loading="lazy">
+          </div>
+          <div class="gallery__info">
+            <h3 data-i18n="gal_3_h">The Summit</h3>
+            <p data-i18n="gal_3_p">Ford Transit — Mountain-ready 4x4 office</p>
+          </div>
+        </div>
+        <div class="gallery__item animate-in">
+          <div class="gallery__img">
+            <img src="images/desert-runner.jpg" alt="Desert Runner — RAM ProMaster with solar panels in desert" loading="lazy">
+          </div>
+          <div class="gallery__info">
+            <h3 data-i18n="gal_4_h">Desert Runner</h3>
+            <p data-i18n="gal_4_p">RAM ProMaster — Solar-powered desert explorer</p>
+          </div>
+        </div>
+        <div class="gallery__item gallery__item--wide animate-in">
+          <div class="gallery__img">
+            <img src="images/the-architect.jpg" alt="The Architect — Iveco Daily dual workspace interior" loading="lazy">
+          </div>
+          <div class="gallery__info">
+            <h3 data-i18n="gal_5_h">The Architect</h3>
+            <p data-i18n="gal_5_p">Iveco Daily 4x4 — Dual workspace with drafting table and full CAD station</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features__layout">
+        <div class="features__header">
+          <span class="section-tag" data-i18n="why_tag">Why Vanworks</span>
+          <h2 class="section-title" data-i18n="why_title" data-i18n-html>Built different,<br>by design</h2>
+          <p class="section-desc" data-i18n="why_desc">We're not a van conversion company that added EV. We're EV engineers who fell in love with van life.</p>
+        </div>
+        <div class="features__list">
+          <div class="feature animate-in">
+            <div class="feature__number">01</div>
+            <div class="feature__content">
+              <h3 data-i18n="why_h1">Automotive-grade engineering</h3>
+              <p data-i18n="why_p1">Every electrical connection, every structural modification meets or exceeds OEM standards. IVA tested and certified.</p>
+            </div>
+          </div>
+          <div class="feature animate-in">
+            <div class="feature__number">02</div>
+            <div class="feature__content">
+              <h3 data-i18n="why_h2">Integrated power architecture</h3>
+              <p data-i18n="why_p2">Drive battery and house battery share a unified management system. No wasted energy, intelligent load balancing.</p>
+            </div>
+          </div>
+          <div class="feature animate-in">
+            <div class="feature__number">03</div>
+            <div class="feature__content">
+              <h3 data-i18n="why_h3">Future-proof tech stack</h3>
+              <p data-i18n="why_p3">OTA updates, modular components, and standardised connectors mean your van grows with technology.</p>
+            </div>
+          </div>
+          <div class="feature animate-in">
+            <div class="feature__number">04</div>
+            <div class="feature__content">
+              <h3 data-i18n="why_h4">Transparent pricing</h3>
+              <p data-i18n="why_p4">Detailed line-item quotes with no hidden fees. Choose your spec level and know exactly what you're paying for.</p>
+            </div>
+          </div>
+          <div class="feature animate-in">
+            <div class="feature__number">05</div>
+            <div class="feature__content">
+              <h3 data-i18n="why_h5">Lifetime support</h3>
+              <p data-i18n="why_p5">2-year build warranty, lifetime technical support, and an active owner community for knowledge sharing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="rev_tag">Client stories</span>
+        <h2 class="section-title" data-i18n="rev_title">Trusted by remote pioneers</h2>
+      </div>
+      <div class="testimonials__grid">
+        <div class="testimonial animate-in">
+          <div class="testimonial__stars">★★★★★</div>
+          <blockquote class="testimonial__quote" data-i18n="rev_1">
+            "I've been working full-time from my Vanworks build for 14 months. Clients on video calls have no idea I'm parked on a clifftop in Portugal. The build quality is extraordinary."
+          </blockquote>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar">JM</div>
+            <div>
+              <div class="testimonial__name" data-i18n="rev_1_name">James Mitchell</div>
+              <div class="testimonial__role" data-i18n="rev_1_role">Software Architect</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial animate-in">
+          <div class="testimonial__stars">★★★★★</div>
+          <blockquote class="testimonial__quote" data-i18n="rev_2">
+            "The EV conversion is a game-changer. Silent running, instant torque for mountain roads, and I charge from the solar panels while I work. It's the future."
+          </blockquote>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar">SK</div>
+            <div>
+              <div class="testimonial__name" data-i18n="rev_2_name">Sarah Kerr</div>
+              <div class="testimonial__role" data-i18n="rev_2_role">Environmental Consultant</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial animate-in">
+          <div class="testimonial__stars">★★★★★</div>
+          <blockquote class="testimonial__quote" data-i18n="rev_3">
+            "From the first discovery call to handover, the process was seamless. The 3D walkthrough meant there were zero surprises. Exactly what I designed, perfectly executed."
+          </blockquote>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar">DP</div>
+            <div>
+              <div class="testimonial__name" data-i18n="rev_3_name">David Park</div>
+              <div class="testimonial__role" data-i18n="rev_3_role">Product Designer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-banner__inner">
+        <div class="cta-banner__glow"></div>
+        <h2 class="cta-banner__title" data-i18n="cta_title">Ready to electrify your workspace?</h2>
+        <p class="cta-banner__desc" data-i18n="cta_desc">Limited build slots available for 2026. Book your discovery call today and let's design your perfect mobile office.</p>
+        <a href="#contact" class="btn btn--primary btn--lg">
+          <span data-i18n="cta_btn">Book Discovery Call</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact__layout">
+        <div class="contact__info">
+          <span class="section-tag" data-i18n="ct_tag">Get in touch</span>
+          <h2 class="section-title" data-i18n="ct_title" data-i18n-html>Let's build your<br>dream office van</h2>
+          <p class="section-desc" data-i18n="ct_desc">Fill in the form and we'll get back to you within 24 hours with availability and a rough estimate.</p>
+          <div class="contact__details">
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <span data-i18n="ct_phone">+44 (0) 117 555 0199</span>
+            </div>
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <span data-i18n="ct_email">hello@vanworks-ev.co.uk</span>
+            </div>
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-i18n="ct_address">Unit 7, Ironworks Lane, Bristol BS2 0QD</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact__form" id="contactForm">
+          <div class="form__group">
+            <label for="name" class="form__label" data-i18n="form_name">Full name</label>
+            <input type="text" id="name" name="name" class="form__input" placeholder="John Smith" required>
+          </div>
+          <div class="form__group">
+            <label for="email" class="form__label" data-i18n="form_email">Email</label>
+            <input type="email" id="email" name="email" class="form__input" placeholder="john@example.com" required>
+          </div>
+          <div class="form__group">
+            <label for="van" class="form__label" data-i18n="form_van">Van make &amp; model (or undecided)</label>
+            <input type="text" id="van" name="van" class="form__input" placeholder="e.g. Mercedes Sprinter 314">
+          </div>
+          <div class="form__group">
+            <label for="services" class="form__label" data-i18n="form_services">Services interested in</label>
+            <select id="services" name="services" class="form__input form__select">
+              <option value="" disabled selected data-i18n="form_svc_select">Select a service</option>
+              <option value="full" data-i18n="form_svc_full">Full build (EV + Office + 4x4)</option>
+              <option value="ev" data-i18n="form_svc_ev">EV conversion only</option>
+              <option value="office" data-i18n="form_svc_office">Office interior only</option>
+              <option value="4x4" data-i18n="form_svc_4x4">4x4 upgrade only</option>
+              <option value="solar" data-i18n="form_svc_solar">Solar &amp; power system</option>
+              <option value="other" data-i18n="form_svc_other">Other / not sure yet</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label for="budget" class="form__label" data-i18n="form_budget">Approximate budget</label>
+            <select id="budget" name="budget" class="form__input form__select">
+              <option value="" disabled selected data-i18n="form_bud_select">Select a range</option>
+              <option value="30-50" data-i18n="form_bud_1">£30,000 – £50,000</option>
+              <option value="50-80" data-i18n="form_bud_2">£50,000 – £80,000</option>
+              <option value="80-120" data-i18n="form_bud_3">£80,000 – £120,000</option>
+              <option value="120+" data-i18n="form_bud_4">£120,000+</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label for="message" class="form__label" data-i18n="form_message">Tell us about your dream build</label>
+            <textarea id="message" name="message" class="form__input form__textarea" rows="4" placeholder="I want to work remotely from the Scottish Highlands..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">
+            <span data-i18n="form_submit">Send Enquiry</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+          <div class="form__success" id="formSuccess">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            <span data-i18n="form_success">Thanks! We'll be in touch within 24 hours.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="#" class="nav__logo">
+            <svg class="nav__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="currentColor"/>
+              <path d="M22 8L12 22h7l-2 10 10-14h-7l2-10z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <span>Vanworks<span class="nav__logo-accent">EV</span></span>
+          </a>
+          <p class="footer__tagline" data-i18n="footer_tagline">Electrifying the future of mobile work, one van at a time.</p>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading" data-i18n="foot_svc">Services</h4>
+          <a href="#services" class="footer__link" data-i18n="svc_ev_h">EV Conversion</a>
+          <a href="#services" class="footer__link" data-i18n="svc_off_h">Office Interior</a>
+          <a href="#services" class="footer__link" data-i18n="svc_4x4_h">4x4 Upgrades</a>
+          <a href="#services" class="footer__link" data-i18n="svc_solar_h">Solar &amp; Power</a>
+          <a href="#services" class="footer__link" data-i18n="svc_design_h">Bespoke Design</a>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading" data-i18n="foot_company">Company</h4>
+          <a href="#process" class="footer__link" data-i18n="foot_our_process">Our Process</a>
+          <a href="#gallery" class="footer__link" data-i18n="foot_gallery">Gallery</a>
+          <a href="#testimonials" class="footer__link" data-i18n="foot_reviews">Reviews</a>
+          <a href="#contact" class="footer__link" data-i18n="foot_contact">Contact</a>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading" data-i18n="foot_connect">Connect</h4>
+          <a href="#" class="footer__link">Instagram</a>
+          <a href="#" class="footer__link">YouTube</a>
+          <a href="#" class="footer__link">LinkedIn</a>
+          <a href="#" class="footer__link" data-i18n="foot_newsletter">Newsletter</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p data-i18n="foot_copy">&copy; 2026 Vanworks EV Office. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="#" data-i18n="foot_privacy">Privacy Policy</a>
+          <a href="#" data-i18n="foot_terms">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+  <script>
+    (() => {
+      let currentLang = localStorage.getItem('vw_lang') || 'en';
+
+      const applyLang = (lang) => {
+        const t = I18N[lang];
+        if (!t) return;
+        currentLang = lang;
+        localStorage.setItem('vw_lang', lang);
+        document.documentElement.lang = lang;
+
+        document.title = t._meta.title;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.content = t._meta.desc;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.dataset.i18n;
+          if (t[key] === undefined) return;
+          if (el.hasAttribute('data-i18n-html')) {
+            el.innerHTML = t[key];
+          } else {
+            el.textContent = t[key];
+          }
+        });
+
+        document.querySelectorAll('[data-i18n-list]').forEach(ul => {
+          const key = ul.dataset.i18nList;
+          const items = t[key];
+          if (!items) return;
+          ul.innerHTML = items.map(f => '<li>' + f + '</li>').join('');
+        });
+
+        document.querySelectorAll('.lang-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.lang === lang);
+        });
+      };
+
+      document.getElementById('langSwitcher').addEventListener('click', (e) => {
+        const btn = e.target.closest('.lang-btn');
+        if (!btn) return;
+        applyLang(btn.dataset.lang);
+      });
+
+      if (currentLang !== 'en') applyLang(currentLang);
+    })();
+  </script>
+</body>
+</html>
