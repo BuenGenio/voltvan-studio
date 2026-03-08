@@ -1,0 +1,173 @@
+/* ============================================
+   Build Wizard
+   ============================================ */
+.wizard { padding: 6rem 0; }
+
+/* --- Progress bar --- */
+.wiz__progress {
+  display: flex; gap: 4px; margin-bottom: 2.5rem;
+}
+.wiz__prog-step {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  cursor: pointer; position: relative;
+}
+.wiz__prog-bar {
+  width: 100%; height: 4px; border-radius: 2px;
+  background: var(--border); transition: background 0.35s var(--ease);
+}
+.wiz__prog-step.done .wiz__prog-bar,
+.wiz__prog-step.active .wiz__prog-bar { background: var(--accent); }
+.wiz__prog-step.active .wiz__prog-bar { box-shadow: 0 0 12px var(--accent-glow); }
+.wiz__prog-label {
+  font-size: 0.6875rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-dim);
+  transition: color 0.25s var(--ease);
+}
+.wiz__prog-step.done .wiz__prog-label,
+.wiz__prog-step.active .wiz__prog-label { color: var(--accent); }
+
+/* --- Layout --- */
+.wiz__layout {
+  display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: start;
+}
+
+/* --- Steps container --- */
+.wiz__steps { min-height: 340px; }
+.wiz__step { display: none; animation: wizFadeIn 0.3s var(--ease); }
+.wiz__step.active { display: block; }
+@keyframes wizFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.wiz__step-title {
+  font-family: var(--ff-heading); font-size: 1.375rem; font-weight: 700;
+  color: var(--white); margin-bottom: 0.375rem;
+}
+.wiz__step-desc { font-size: 0.9375rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+.wiz__sub-label {
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.75rem;
+}
+
+/* --- Option cards (radio) --- */
+.wiz__options { display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.5rem; }
+.wiz__opt {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: all 0.2s var(--ease); position: relative;
+}
+.wiz__opt:hover { border-color: var(--border-light); background: var(--bg-card-hover); }
+.wiz__opt.selected { border-color: var(--accent); background: rgba(200, 255, 0, 0.04); }
+
+.wiz__opt-radio {
+  flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--border-light); position: relative;
+  transition: border-color 0.2s var(--ease);
+}
+.wiz__opt.selected .wiz__opt-radio { border-color: var(--accent); }
+.wiz__opt.selected .wiz__opt-radio::after {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%;
+  background: var(--accent);
+}
+
+.wiz__opt-info { flex: 1; min-width: 0; }
+.wiz__opt-name {
+  font-family: var(--ff-heading); font-size: 0.9375rem;
+  font-weight: 600; color: var(--white);
+}
+.wiz__opt-desc { font-size: 0.8125rem; color: var(--text-muted); margin-top: 0.125rem; }
+
+.wiz__opt-price {
+  flex-shrink: 0; font-family: var(--ff-heading); font-size: 0.9375rem;
+  font-weight: 700; color: var(--accent); white-space: nowrap;
+}
+
+/* --- Checkbox elements --- */
+.wiz__checks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.5rem; }
+.wiz__chk {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.wiz__chk:hover { border-color: var(--border-light); }
+.wiz__chk.selected { border-color: var(--accent); background: rgba(200, 255, 0, 0.04); }
+
+.wiz__chk-box {
+  flex-shrink: 0; width: 18px; height: 18px; border-radius: 4px;
+  border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s var(--ease);
+}
+.wiz__chk.selected .wiz__chk-box { border-color: var(--accent); background: var(--accent); }
+.wiz__chk-box svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.15s; }
+.wiz__chk.selected .wiz__chk-box svg { opacity: 1; }
+
+.wiz__chk-name { font-size: 0.8125rem; font-weight: 500; color: var(--text); flex: 1; }
+.wiz__chk-price {
+  font-family: var(--ff-heading); font-size: 0.75rem;
+  font-weight: 600; color: var(--text-muted); white-space: nowrap;
+}
+.wiz__chk.selected .wiz__chk-price { color: var(--accent); }
+
+/* --- Navigation buttons --- */
+.wiz__nav {
+  display: flex; gap: 0.75rem; margin-top: 2rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--border);
+}
+.wiz__nav .btn { min-width: 140px; justify-content: center; }
+
+/* --- Preview panel --- */
+.wiz__preview-panel { position: relative; }
+.wiz__preview-sticky {
+  position: sticky; top: 5.5rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+.wiz__view-toggle {
+  display: flex; border-bottom: 1px solid var(--border);
+}
+.wiz__view-btn {
+  flex: 1; padding: 0.625rem; background: transparent; border: none;
+  font-family: var(--ff-heading); font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-dim); cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.wiz__view-btn.active { color: var(--accent); background: var(--accent-dim); }
+
+.wiz__svg-wrap {
+  aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem; background: linear-gradient(145deg, #0d0d10 0%, #111115 100%);
+}
+.wiz__svg-wrap svg { width: 100%; height: 100%; }
+
+.wiz__price {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 1.25rem; border-top: 1px solid var(--border);
+  background: rgba(200, 255, 0, 0.03);
+}
+.wiz__price-label { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); }
+.wiz__price-value {
+  font-family: var(--ff-heading); font-size: 2rem; font-weight: 700;
+  color: var(--accent); line-height: 1.2;
+  transition: transform 0.2s var(--ease);
+}
+.wiz__price-value.bump { transform: scale(1.08); }
+.wiz__price-vat { font-size: 0.6875rem; color: var(--text-dim); }
+
+/* --- Mobile preview toggle --- */
+.wiz__preview-mobile-toggle { display: none; }
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .wiz__layout { grid-template-columns: 1fr; }
+  .wiz__preview-panel { order: -1; }
+  .wiz__preview-sticky { position: static; }
+  .wiz__checks { grid-template-columns: 1fr; }
+  .wiz__prog-label { font-size: 0.5625rem; }
+}
+
+@media (max-width: 480px) {
+  .wiz__progress { flex-wrap: wrap; gap: 6px; }
+  .wiz__prog-step { flex: 0 0 calc(33.33% - 4px); }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="wizard.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <style>
     .lang-switcher{display:flex;gap:2px;padding:2px;border-radius:6px;background:rgba(255,255,255,.08);margin-right:auto;margin-left:1rem}
@@ -70,7 +71,7 @@
         the road takes you.
       </p>
       <div class="hero__actions animate-in">
-        <a href="#contact" class="btn btn--primary btn--lg">
+        <a href="#wizard" class="btn btn--primary btn--lg">
           <span data-i18n="hero_cta1">Start Your Build</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -98,6 +99,35 @@
       <div class="hero__scroll-line"></div>
     </div>
   </header>
+
+  <!-- Build Wizard -->
+  <section class="wizard" id="wizard">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="wiz_tag">Build Configurator</span>
+        <h2 class="section-title" data-i18n="wiz_title">Design Your Build</h2>
+        <p class="section-desc" data-i18n="wiz_desc">Step through each stage to configure your perfect mobile office. Prices update live as you choose.</p>
+      </div>
+      <div class="wiz__progress" id="wizProgress"></div>
+      <div class="wiz__layout">
+        <div class="wiz__steps" id="wizSteps"></div>
+        <div class="wiz__preview-panel">
+          <div class="wiz__preview-sticky">
+            <div class="wiz__view-toggle">
+              <button class="wiz__view-btn active" data-view="rear" data-i18n="wiz_rear">Rear</button>
+              <button class="wiz__view-btn" data-view="side" data-i18n="wiz_side">Side</button>
+            </div>
+            <div class="wiz__svg-wrap" id="wizSvg"></div>
+            <div class="wiz__price" id="wizPrice">
+              <span class="wiz__price-label" data-i18n="wiz_est">Estimated total</span>
+              <span class="wiz__price-value" id="wizPriceVal">£8,000</span>
+              <span class="wiz__price-vat" data-i18n="wiz_vat">excl. VAT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Services -->
   <section class="services" id="services">
@@ -461,8 +491,8 @@
             <input type="text" id="van" name="van" class="form__input" placeholder="e.g. Mercedes Sprinter 314">
           </div>
           <div class="form__group">
-            <label for="services" class="form__label" data-i18n="form_services">Services interested in</label>
-            <select id="services" name="services" class="form__input form__select">
+            <label for="serviceSelect" class="form__label" data-i18n="form_services">Services interested in</label>
+            <select id="serviceSelect" name="services" class="form__input form__select">
               <option value="" disabled selected data-i18n="form_svc_select">Select a service</option>
               <option value="full" data-i18n="form_svc_full">Full build (EV + Office + 4x4)</option>
               <option value="ev" data-i18n="form_svc_ev">EV conversion only</option>
@@ -547,16 +577,26 @@
   </footer>
 
   <script src="i18n.js"></script>
+  <script src="wizard.js"></script>
   <script src="script.js"></script>
   <script>
     (() => {
-      let currentLang = localStorage.getItem('vw_lang') || 'en';
+      const urlLang = new URLSearchParams(window.location.search).get('lang');
+      window.currentLang = (urlLang && I18N[urlLang]) ? urlLang : (localStorage.getItem('vw_lang') || 'en');
+
+      const setLangURL = (lang) => {
+        const url = new URL(window.location);
+        if (lang === 'en') { url.searchParams.delete('lang'); }
+        else { url.searchParams.set('lang', lang); }
+        history.replaceState(null, '', url);
+      };
 
       const applyLang = (lang) => {
         const t = I18N[lang];
         if (!t) return;
-        currentLang = lang;
+        window.currentLang = lang;
         localStorage.setItem('vw_lang', lang);
+        setLangURL(lang);
         document.documentElement.lang = lang;
 
         document.title = t._meta.title;
@@ -583,6 +623,8 @@
         document.querySelectorAll('.lang-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.lang === lang);
         });
+
+        if (typeof Wizard !== 'undefined') Wizard.renderStep();
       };
 
       document.getElementById('langSwitcher').addEventListener('click', (e) => {
@@ -591,7 +633,8 @@
         applyLang(btn.dataset.lang);
       });
 
-      if (currentLang !== 'en') applyLang(currentLang);
+      if (window.currentLang !== 'en') applyLang(window.currentLang);
+      else setLangURL('en');
     })();
   </script>
 </body>
