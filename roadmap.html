@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltVan — Business Roadmap & Action Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <style>
+    :root {
+      --bg: #0a0a0a; --bg-card: #111113; --bg-card-hover: #18181b;
+      --border: #222226; --border-light: #2a2a2e;
+      --text: #e4e4e7; --text-muted: #71717a; --text-dim: #52525b;
+      --accent: #c8ff00; --accent-dim: rgba(200,255,0,.12); --accent-glow: rgba(200,255,0,.25);
+      --white: #fafafa;
+      --ff-heading: 'Space Grotesk', system-ui, sans-serif;
+      --ff-body: 'Inter', system-ui, sans-serif;
+      --radius: 12px; --radius-sm: 8px;
+      --ease: cubic-bezier(.4,0,.2,1);
+      --success: #22c55e; --warn: #f59e0b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--ff-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+
+    /* Header */
+    .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-family: var(--ff-heading); font-size: 2rem; font-weight: 700; color: var(--white); margin-bottom: .5rem; }
+    .page-header h1 span { color: var(--accent); }
+    .page-header p { color: var(--text-muted); font-size: .9375rem; }
+    .back-link { display: inline-flex; align-items: center; gap: .375rem; font-size: .8125rem; color: var(--text-muted); margin-bottom: 1rem; transition: color .2s; }
+    .back-link:hover { color: var(--accent); text-decoration: none; }
+
+    /* Progress overview */
+    .progress-bar-wrap { margin-top: 1.5rem; }
+    .progress-stats { display: flex; justify-content: space-between; font-size: .75rem; color: var(--text-dim); margin-bottom: .5rem; }
+    .progress-stats span:last-child { color: var(--accent); font-weight: 600; }
+    .progress-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .4s var(--ease); }
+
+    /* Sections */
+    .section { margin-bottom: 2.5rem; }
+    .section-title {
+      font-family: var(--ff-heading); font-size: 1.25rem; font-weight: 700;
+      color: var(--white); margin-bottom: .375rem; display: flex; align-items: center; gap: .75rem;
+    }
+    .section-title .badge {
+      font-size: .625rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+      padding: .2rem .625rem; border-radius: 100px; background: var(--accent-dim); color: var(--accent);
+    }
+    .section-desc { color: var(--text-muted); font-size: .875rem; margin-bottom: 1.25rem; }
+
+    /* Action items */
+    .action { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: .5rem; transition: border-color .2s; }
+    .action:hover { border-color: var(--border-light); }
+    .action.done { border-color: rgba(34,197,94,.2); }
+    .action-top { display: flex; align-items: flex-start; gap: .75rem; padding: .875rem 1rem; cursor: pointer; }
+    .action-check {
+      flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;
+      border: 2px solid var(--border-light); border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s var(--ease); cursor: pointer;
+    }
+    .action.done .action-check { background: var(--success); border-color: var(--success); }
+    .action-check svg { width: 12px; height: 12px; opacity: 0; transition: opacity .15s; }
+    .action.done .action-check svg { opacity: 1; }
+    .action-content { flex: 1; min-width: 0; }
+    .action-label { font-size: .875rem; font-weight: 500; color: var(--text); transition: color .2s; }
+    .action.done .action-label { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--text-dim); }
+    .action-meta { font-size: .75rem; color: var(--text-dim); margin-top: .125rem; }
+    .action-cost { font-family: var(--ff-heading); font-size: .75rem; font-weight: 600; color: var(--accent); white-space: nowrap; margin-left: auto; padding-left: 1rem; }
+    .action.done .action-cost { opacity: .5; }
+
+    /* Notes */
+    .action-notes { padding: 0 1rem .875rem 2.75rem; display: none; }
+    .action.has-notes .action-notes, .action.editing .action-notes { display: block; }
+    .action-notes textarea {
+      width: 100%; min-height: 56px; padding: .625rem .75rem;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); font-family: var(--ff-body); font-size: .8125rem; line-height: 1.5;
+      resize: vertical; transition: border-color .2s;
+    }
+    .action-notes textarea:focus { outline: none; border-color: var(--accent); }
+    .action-notes textarea::placeholder { color: var(--text-dim); }
+    .note-toggle {
+      flex-shrink: 0; background: none; border: none; color: var(--text-dim);
+      cursor: pointer; padding: 4px; font-size: .75rem; transition: color .2s;
+    }
+    .note-toggle:hover { color: var(--text); }
+
+    /* Info tables */
+    .info-table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-size: .8125rem; }
+    .info-table th { text-align: left; font-weight: 600; color: var(--text-dim); font-size: .6875rem; text-transform: uppercase; letter-spacing: .06em; padding: .5rem .75rem; border-bottom: 1px solid var(--border); }
+    .info-table td { padding: .625rem .75rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .info-table td:first-child { color: var(--text); font-weight: 500; }
+    .info-table td:last-child { color: var(--accent); font-family: var(--ff-heading); font-weight: 600; text-align: right; }
+
+    /* Callout */
+    .callout { background: var(--accent-dim); border: 1px solid rgba(200,255,0,.15); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+    .callout-title { font-family: var(--ff-heading); font-size: .8125rem; font-weight: 600; color: var(--accent); margin-bottom: .25rem; text-transform: uppercase; letter-spacing: .04em; }
+    .callout p { font-size: .8125rem; color: var(--text-muted); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page { padding: 1.25rem 1rem 4rem; }
+      .page-header h1 { font-size: 1.5rem; }
+      .action-cost { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a href="index.html" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to site</a>
+    <div class="page-header">
+      <h1>Vanworks EV Office <span>Business Roadmap</span></h1>
+      <p>Everything you need to go from website to workshop. Check off items as you complete them, add notes to track progress.</p>
+      <div class="progress-bar-wrap">
+        <div class="progress-stats"><span id="progText">0 of 0 completed</span><span id="progPct">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0"></div></div>
+      </div>
+    </div>
+
+    <div id="roadmap"></div>
+  </div>
+
+  <script>
+    const SECTIONS = [
+      {
+        title: 'Facility & Workshop', desc: 'Secure your physical build space before anything else.',
+        items: [
+          { id: 'f1', label: 'Find commercial unit (2,000-5,000 sq ft) with vehicle-height roller doors', meta: 'Industrial estate, edge of city. 3-phase power, extraction ventilation required.', cost: '£1,500-3,000/mo' },
+          { id: 'f2', label: 'Install vehicle lift or inspection pit', meta: 'Essential for underbody work — suspension, drivetrain, battery mounting.', cost: '£3,000-8,000' },
+          { id: 'f3', label: 'Set up spray booth or arrange access to one', meta: 'Needed for paint correction and interior finishing. Can subcontract initially.' },
+          { id: 'f4', label: 'Secure compound for storing donor vehicles and WIP builds', meta: 'Ideally adjacent to the workshop. Needs CCTV and insurance.' },
+          { id: 'f5', label: 'Set up dedicated 3D design workstation', meta: 'Fusion 360 or SolidWorks, high-spec GPU, optional VR headset for client walkthroughs.', cost: '£3,000-6,000' },
+        ]
+      },
+      {
+        title: 'Core Equipment', desc: 'Tools and machinery for fabrication, electrical, and interior work.',
+        items: [
+          { id: 'eq1', label: 'Fabrication: MIG/TIG welder, plasma cutter, brake press, drill press', cost: '£8,000-15,000' },
+          { id: 'eq2', label: 'Woodworking: Table saw, router table, edge bander', meta: 'For interior cabinetry and panelling.', cost: '£5,000-10,000' },
+          { id: 'eq3', label: 'Electrical: Crimping tools, multimeter, insulation tester, BMS diagnostics', cost: '£2,000-5,000' },
+          { id: 'eq4', label: 'General: Compressor, hand tools, consumables, PPE', cost: '£3,000-5,000' },
+          { id: 'eq5', label: 'Vehicle diagnostics: OBD scanner with CAN bus support', meta: 'For reading and clearing fault codes, especially during EV integration.', cost: '£500-2,000' },
+        ]
+      },
+      {
+        title: 'Team & Skills', desc: 'Start lean — 2-3 people plus subcontractors. Scale as orders come in.',
+        items: [
+          { id: 't1', label: 'Auto-electrician with IMI Level 3+ EV/Hybrid qualification', meta: 'Critical hire. Must be TechSafe registered for high-voltage work. £35-50k salary.' },
+          { id: 't2', label: 'Fabricator / welder for structural modifications', meta: 'Subframes, mounting brackets, chassis reinforcement. £30-42k salary.' },
+          { id: 't3', label: 'Joiner / cabinet maker for interior fitout', meta: 'Can start as subcontractor, bring in-house once volume justifies it.' },
+          { id: 't4', label: 'Upholsterer (subcontract initially)', meta: 'Seats, wall panels, headliner. Find a local trim shop you trust.' },
+          { id: 't5', label: 'You: project management, sales, design, client relations', meta: 'Wear all the hats initially. Prioritise the discovery call and design process.' },
+        ]
+      },
+      {
+        title: 'Certifications & Compliance (UK)', desc: 'Legal requirements before you can sell and register modified vehicles.',
+        badge: 'Critical',
+        items: [
+          { id: 'c1', label: 'Understand IVA (Individual Vehicle Approval) process', meta: 'Required by DVSA for substantially modified vehicles before road registration. Study the IVA manual in detail.' },
+          { id: 'c2', label: 'Register for IMI TechSafe', meta: 'Legally required for anyone working on high-voltage EV systems. Both you and your electrician.' },
+          { id: 'c3', label: 'Arrange DVLA V55/5 notifications for drivetrain changes', meta: 'Mandatory when converting ICE to EV. Notify DVLA of fuel type change.' },
+          { id: 'c4', label: 'Public liability insurance', meta: 'Minimum £2M cover. Covers third-party injury/damage at your premises.', cost: '£500-1,500/yr' },
+          { id: 'c5', label: 'Product liability insurance', meta: 'Covers claims from defects in vehicles you\'ve modified. Essential.', cost: '£1,000-3,000/yr' },
+          { id: 'c6', label: 'Employer\'s liability insurance', meta: 'Legally required as soon as you hire anyone. Minimum £5M cover.', cost: '£400-1,000/yr' },
+          { id: 'c7', label: 'Motor trade insurance', meta: 'For driving customer vehicles, road testing, and transit.', cost: '£1,500-3,000/yr' },
+          { id: 'c8', label: 'Gas Safe registration (if fitting gas appliances)', meta: 'Required for cookers, gas heaters, or any LPG systems.' },
+        ]
+      },
+      {
+        title: 'Supply Chain', desc: 'Build relationships with key component suppliers.',
+        items: [
+          { id: 's1', label: 'EV drivetrain kits: Contact Electrogenic, Fellten, Swindon Powertrain', meta: 'Get pricing for Sprinter/Transit platforms. Ask about volume discounts and lead times.' },
+          { id: 's2', label: 'Batteries (LiFePO4): Source from EVE Energy, CATL, or pre-built Victron packs', meta: 'LiFePO4 is safest for vehicle applications. Compare cell-level vs pre-built pack pricing.' },
+          { id: 's3', label: 'BMS: Evaluate Orion BMS, REC BMS, Daly', meta: 'Orion BMS2 is industry standard for conversions. ~£1,200 per unit.' },
+          { id: 's4', label: 'Solar & house power: Set up Victron Energy dealer account', meta: 'Inverters, MPPT controllers, Cerbo GX monitoring. Renogy panels for roof mount.' },
+          { id: 's5', label: 'Suspension / 4x4: Contact Terrafirma, VB-Airsuspension, Seikel', meta: 'Platform-specific. Seikel for VW/MB, Agile Offroad for Sprinter.' },
+          { id: 's6', label: 'Interior materials: Altro floors, Egger laminate, Hafele hardware', meta: 'Open trade accounts. Lomond for upholstery fabric.' },
+          { id: 's7', label: 'Insulation: Stock Dodo Mat, Armaflex, Noico', meta: 'Different products for sound deadening vs thermal insulation. Buy in bulk.' },
+        ]
+      },
+      {
+        title: 'First Build', desc: 'Your proof-of-concept vehicle. This becomes your portfolio, your showroom, and your best marketing asset.',
+        badge: 'Start here',
+        items: [
+          { id: 'b1', label: 'Source donor vehicle: LWB Sprinter/Transit, 2019-2021, <80k miles', meta: 'Ex-fleet with full service history. Budget £12-18k. Start with ONE platform.', cost: '£12,000-18,000' },
+          { id: 'b2', label: 'Strip interior to bare shell', meta: 'Remove bulkhead, floor, panels. Inspect for rust, treat and seal.' },
+          { id: 'b3', label: 'Design full 3D model of the build', meta: 'Create in CAD. This becomes your template for client walkthroughs.' },
+          { id: 'b4', label: 'Complete interior fitout (your Premium tier)', meta: 'Insulation, cladding, electrics, cabinetry, desk, seating.', cost: '£8,000-16,000' },
+          { id: 'b5', label: 'Install lithium + solar power system', meta: '5kWh LiFePO4 bank, 800W roof solar, Victron MPPT + inverter.', cost: '£5,000-7,000' },
+          { id: 'b6', label: 'EV conversion (optional for first build — can defer)', meta: 'Full drivetrain swap. Consider starting with interior-only builds first.', cost: '£25,000-40,000' },
+          { id: 'b7', label: 'IVA test and registration', meta: 'Book test at your nearest DVSA centre. Prep time: 1-2 weeks.', cost: '£1,000-2,000' },
+          { id: 'b8', label: 'Professional photo and video shoot', meta: 'This replaces the generated gallery images on your website. Critical for credibility.' },
+          { id: 'b9', label: 'Document EVERYTHING — build diary, social media, time-lapses', meta: 'Instagram reels, YouTube build series, blog posts. This IS your marketing pipeline.' },
+        ]
+      },
+      {
+        title: 'Business Fundamentals', desc: 'Legal entity, banking, accounting.',
+        items: [
+          { id: 'bz1', label: 'Register Ltd company (Companies House)', meta: 'Or start as sole trader and convert later. Ltd gives liability protection.', cost: '£12-50' },
+          { id: 'bz2', label: 'Open business bank account', meta: 'Starling, Tide, or Mettle for quick setup. Separate personal and business finances.' },
+          { id: 'bz3', label: 'Register for VAT (mandatory if turnover >£90k)', meta: 'You\'ll likely hit this quickly. VAT on materials is reclaimable.' },
+          { id: 'bz4', label: 'Hire accountant with motor trade experience', meta: 'Capital allowances on tools/equipment, R&D tax credits for EV engineering.' },
+          { id: 'bz5', label: 'Set up invoicing and deposit system (Stripe integration on website)', meta: 'Take 25-30% non-refundable deposit to secure build slot.' },
+          { id: 'bz6', label: 'Draft standard terms and conditions / build contract', meta: 'Cover scope of work, payment milestones, change order process, warranty terms.' },
+        ]
+      },
+      {
+        title: 'Marketing & Sales Pipeline', desc: 'Turn the website into a lead-generation machine.',
+        items: [
+          { id: 'mk1', label: 'Replace generated gallery images with real build photos', meta: 'Your first build photos are the single highest-impact website update.' },
+          { id: 'mk2', label: 'Set up Google Business Profile', meta: 'Vanworks EV Office, Bristol. Add photos, opening hours, reviews.' },
+          { id: 'mk3', label: 'Create Instagram and YouTube accounts', meta: 'Build diary content, before/after reveals, behind-the-scenes workshop footage.' },
+          { id: 'mk4', label: 'Join van life and EV communities', meta: 'Reddit: r/vandwellers, r/electricvehicles. Facebook groups. Forum sponsorships.' },
+          { id: 'mk5', label: 'Attend van life shows and EV expos', meta: 'The Van Life Show, Fully Charged Live, Camper Van & Motorhome Show.' },
+          { id: 'mk6', label: 'Set up email newsletter (Mailchimp/Buttondown)', meta: 'Capture leads from website, send monthly build updates.' },
+          { id: 'mk7', label: 'SEO: Target "van conversion UK", "electric van conversion", "van office conversion"', meta: 'Add a blog section to the website. Write build case studies.' },
+        ]
+      },
+      {
+        title: 'Financial Planning', desc: 'Startup costs and first-year projections.',
+        items: [
+          { id: 'fin1', label: 'Calculate total startup capital required', meta: 'Workshop setup + equipment + first donor vehicle + 6 months operating costs. Realistically £80-150k.' },
+          { id: 'fin2', label: 'Explore funding: Start Up Loan (gov.uk), R&D grants, angel investment', meta: 'Start Up Loans offer up to £25k at 6% fixed. Innovate UK may fund EV R&D.' },
+          { id: 'fin3', label: 'Build financial model: unit economics per build tier', meta: 'Cost of materials + labour hours + overheads + margin = sell price per tier.' },
+          { id: 'fin4', label: 'Set pricing that delivers 20-30% gross margin', meta: 'Interior only: sell £25-45k. Full build: sell £80-120k. EV conversion add: +£35-50k.' },
+          { id: 'fin5', label: 'Plan cash flow: deposits → milestone payments → final balance', meta: 'Never start a build without deposit. 25% deposit, 25% at shell, 25% at fitout, 25% at handover.' },
+        ]
+      },
+      {
+        title: 'Growth Milestones', desc: 'Scaling from first build to a real operation.',
+        items: [
+          { id: 'g1', label: 'Complete Build #1 (proof of concept)', meta: 'Target: 12-16 weeks from shell to keys.' },
+          { id: 'g2', label: 'Secure first 3 paying customers', meta: 'Use build wizard enquiries + personal network + social media presence.' },
+          { id: 'g3', label: 'Establish repeatable build process and templates', meta: 'Document standard operating procedures for each tier. Reduce per-build time.' },
+          { id: 'g4', label: 'Hire second fabricator to run parallel builds', meta: 'When you have 3+ builds in the pipeline. Aim for 2 bays running simultaneously.' },
+          { id: 'g5', label: 'Achieve 10 completed builds with testimonials and case studies', meta: 'This is the credibility threshold. Website testimonials become real.' },
+          { id: 'g6', label: 'Explore rail company partnerships (HotDesk Rail crossover)', meta: 'Decommissioned train carriages → stationary office pods. Same interior skills, new market.' },
+        ]
+      },
+    ];
+
+    const LS_KEY = 'vw_roadmap';
+
+    const load = () => {
+      try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; }
+      catch { return {}; }
+    };
+    const save = (data) => localStorage.setItem(LS_KEY, JSON.stringify(data));
+
+    let data = load();
+
+    const container = document.getElementById('roadmap');
+
+    const allIds = [];
+    SECTIONS.forEach(sec => sec.items.forEach(it => allIds.push(it.id)));
+
+    const render = () => {
+      container.innerHTML = SECTIONS.map(sec => {
+        const badge = sec.badge ? `<span class="badge">${sec.badge}</span>` : '';
+        const items = sec.items.map(it => {
+          const d = data[it.id] || {};
+          const done = d.done ? ' done' : '';
+          const hasNotes = d.notes ? ' has-notes' : '';
+          return `<div class="action${done}${hasNotes}" data-id="${it.id}">
+            <div class="action-top">
+              <div class="action-check" data-action="toggle"><svg viewBox="0 0 12 12" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+              <div class="action-content">
+                <div class="action-label">${it.label}</div>
+                ${it.meta ? `<div class="action-meta">${it.meta}</div>` : ''}
+              </div>
+              ${it.cost ? `<span class="action-cost">${it.cost}</span>` : ''}
+              <button class="note-toggle" data-action="note" title="Add note">&#9998;</button>
+            </div>
+            <div class="action-notes">
+              <textarea placeholder="Add your notes here..." data-action="textarea">${d.notes || ''}</textarea>
+            </div>
+          </div>`;
+        }).join('');
+        return `<div class="section">
+          <h2 class="section-title">${sec.title} ${badge}</h2>
+          <p class="section-desc">${sec.desc}</p>
+          ${items}
+        </div>`;
+      }).join('');
+      updateProgress();
+    };
+
+    const updateProgress = () => {
+      const total = allIds.length;
+      const done = allIds.filter(id => data[id]?.done).length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById('progText').textContent = `${done} of ${total} completed`;
+      document.getElementById('progPct').textContent = `${pct}%`;
+      document.getElementById('progFill').style.width = `${pct}%`;
+    };
+
+    container.addEventListener('click', (e) => {
+      const action = e.target.closest('[data-action]');
+      if (!action) return;
+      const card = action.closest('.action');
+      const id = card.dataset.id;
+      if (!data[id]) data[id] = {};
+
+      if (action.dataset.action === 'toggle') {
+        data[id].done = !data[id].done;
+        card.classList.toggle('done', data[id].done);
+        save(data);
+        updateProgress();
+      }
+
+      if (action.dataset.action === 'note') {
+        card.classList.toggle('editing');
+        const ta = card.querySelector('textarea');
+        if (card.classList.contains('editing')) ta.focus();
+      }
+    });
+
+    let saveTimer;
+    container.addEventListener('input', (e) => {
+      if (e.target.dataset.action !== 'textarea') return;
+      const card = e.target.closest('.action');
+      const id = card.dataset.id;
+      if (!data[id]) data[id] = {};
+      data[id].notes = e.target.value;
+      card.classList.toggle('has-notes', !!e.target.value);
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => save(data), 300);
+    });
+
+    render();
+  </script>
+</body>
+</html>
