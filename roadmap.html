@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <script src="i18n.js"></script>
   <style>
     :root {
       --bg: #0a0a0a; --bg-card: #111113; --bg-card-hover: #18181b;
@@ -140,7 +141,7 @@
 <body>
   <div class="page">
     <div class="toolbar">
-      <a href="index.html" class="back-link" id="backLink"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to site</a>
+      <a href="index.html" class="back-link" id="backLink"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> <span id="rmBack">Back to site</span></a>
       <div style="flex:1"></div>
       <div class="lang-switcher" id="langSwitcher">
         <button class="lang-btn active" data-lang="en"><svg class="flag" viewBox="0 0 20 14"><rect width="20" height="14" fill="#012169"/><path d="M0 0l20 14M20 0L0 14" stroke="#fff" stroke-width="2.8"/><path d="M0 0l20 14M20 0L0 14" stroke="#C8102E" stroke-width="1.6"/><path d="M10 0v14M0 7h20" stroke="#fff" stroke-width="4.6"/><path d="M10 0v14M0 7h20" stroke="#C8102E" stroke-width="2.8"/></svg>EN</button>
@@ -154,8 +155,8 @@
       </button>
     </div>
     <div class="page-header">
-      <h1>Vanworks EV Office <span>Business Roadmap</span></h1>
-      <p>Everything you need to go from website to workshop. Check off items as you complete them, add notes to track progress.</p>
+      <h1>Vanworks EV Office <span id="rmTitle">Business Roadmap</span></h1>
+      <p id="rmDesc">Everything you need to go from website to workshop. Check off items as you complete them, add notes to track progress.</p>
       <div class="progress-bar-wrap">
         <div class="progress-stats"><span id="progText">0 of 0 completed</span><span id="progPct">0%</span></div>
         <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0"></div></div>
@@ -166,122 +167,70 @@
   </div>
 
   <script>
+    const urlLang = new URLSearchParams(location.search).get('lang');
+    let currentLang = (urlLang && ['en','uk','es'].includes(urlLang)) ? urlLang : (localStorage.getItem('vw_lang') || 'en');
+    const t = (key) => (typeof I18N !== 'undefined' && I18N[currentLang] && I18N[currentLang][key]) ? I18N[currentLang][key] : (I18N?.en?.[key] || key);
+
     const SECTIONS = [
-      {
-        title: 'Facility & Workshop', desc: 'Secure your physical build space before anything else.',
-        items: [
-          { id: 'f1', label: 'Find commercial unit (2,000-5,000 sq ft) with vehicle-height roller doors', meta: 'Industrial estate, edge of city. 3-phase power, extraction ventilation required.', cost: '£1,500-3,000/mo' },
-          { id: 'f2', label: 'Install vehicle lift or inspection pit', meta: 'Essential for underbody work — suspension, drivetrain, battery mounting.', cost: '£3,000-8,000' },
-          { id: 'f3', label: 'Set up spray booth or arrange access to one', meta: 'Needed for paint correction and interior finishing. Can subcontract initially.' },
-          { id: 'f4', label: 'Secure compound for storing donor vehicles and WIP builds', meta: 'Ideally adjacent to the workshop. Needs CCTV and insurance.' },
-          { id: 'f5', label: 'Set up dedicated 3D design workstation', meta: 'Fusion 360 or SolidWorks, high-spec GPU, optional VR headset for client walkthroughs.', cost: '£3,000-6,000' },
-        ]
-      },
-      {
-        title: 'Core Equipment', desc: 'Tools and machinery for fabrication, electrical, and interior work.',
-        items: [
-          { id: 'eq1', label: 'Fabrication: MIG/TIG welder, plasma cutter, brake press, drill press', cost: '£8,000-15,000' },
-          { id: 'eq2', label: 'Woodworking: Table saw, router table, edge bander', meta: 'For interior cabinetry and panelling.', cost: '£5,000-10,000' },
-          { id: 'eq3', label: 'Electrical: Crimping tools, multimeter, insulation tester, BMS diagnostics', cost: '£2,000-5,000' },
-          { id: 'eq4', label: 'General: Compressor, hand tools, consumables, PPE', cost: '£3,000-5,000' },
-          { id: 'eq5', label: 'Vehicle diagnostics: OBD scanner with CAN bus support', meta: 'For reading and clearing fault codes, especially during EV integration.', cost: '£500-2,000' },
-        ]
-      },
-      {
-        title: 'Team & Skills', desc: 'Start lean — 2-3 people plus subcontractors. Scale as orders come in.',
-        items: [
-          { id: 't1', label: 'Auto-electrician with IMI Level 3+ EV/Hybrid qualification', meta: 'Critical hire. Must be TechSafe registered for high-voltage work. £35-50k salary.' },
-          { id: 't2', label: 'Fabricator / welder for structural modifications', meta: 'Subframes, mounting brackets, chassis reinforcement. £30-42k salary.' },
-          { id: 't3', label: 'Joiner / cabinet maker for interior fitout', meta: 'Can start as subcontractor, bring in-house once volume justifies it.' },
-          { id: 't4', label: 'Upholsterer (subcontract initially)', meta: 'Seats, wall panels, headliner. Find a local trim shop you trust.' },
-          { id: 't5', label: 'You: project management, sales, design, client relations', meta: 'Wear all the hats initially. Prioritise the discovery call and design process.' },
-        ]
-      },
-      {
-        title: 'Certifications & Compliance (UK)', desc: 'Legal requirements before you can sell and register modified vehicles.',
-        badge: 'Critical',
-        items: [
-          { id: 'c1', label: 'Understand IVA (Individual Vehicle Approval) process', meta: 'Required by DVSA for substantially modified vehicles before road registration. Study the IVA manual in detail.' },
-          { id: 'c2', label: 'Register for IMI TechSafe', meta: 'Legally required for anyone working on high-voltage EV systems. Both you and your electrician.' },
-          { id: 'c3', label: 'Arrange DVLA V55/5 notifications for drivetrain changes', meta: 'Mandatory when converting ICE to EV. Notify DVLA of fuel type change.' },
-          { id: 'c4', label: 'Public liability insurance', meta: 'Minimum £2M cover. Covers third-party injury/damage at your premises.', cost: '£500-1,500/yr' },
-          { id: 'c5', label: 'Product liability insurance', meta: 'Covers claims from defects in vehicles you\'ve modified. Essential.', cost: '£1,000-3,000/yr' },
-          { id: 'c6', label: 'Employer\'s liability insurance', meta: 'Legally required as soon as you hire anyone. Minimum £5M cover.', cost: '£400-1,000/yr' },
-          { id: 'c7', label: 'Motor trade insurance', meta: 'For driving customer vehicles, road testing, and transit.', cost: '£1,500-3,000/yr' },
-          { id: 'c8', label: 'Gas Safe registration (if fitting gas appliances)', meta: 'Required for cookers, gas heaters, or any LPG systems.' },
-        ]
-      },
-      {
-        title: 'Supply Chain', desc: 'Build relationships with key component suppliers.',
-        items: [
-          { id: 's1', label: 'EV drivetrain kits: Contact Electrogenic, Fellten, Swindon Powertrain', meta: 'Get pricing for Sprinter/Transit platforms. Ask about volume discounts and lead times.' },
-          { id: 's2', label: 'Batteries (LiFePO4): Source from EVE Energy, CATL, or pre-built Victron packs', meta: 'LiFePO4 is safest for vehicle applications. Compare cell-level vs pre-built pack pricing.' },
-          { id: 's3', label: 'BMS: Evaluate Orion BMS, REC BMS, Daly', meta: 'Orion BMS2 is industry standard for conversions. ~£1,200 per unit.' },
-          { id: 's4', label: 'Solar & house power: Set up Victron Energy dealer account', meta: 'Inverters, MPPT controllers, Cerbo GX monitoring. Renogy panels for roof mount.' },
-          { id: 's5', label: 'Suspension / 4x4: Contact Terrafirma, VB-Airsuspension, Seikel', meta: 'Platform-specific. Seikel for VW/MB, Agile Offroad for Sprinter.' },
-          { id: 's6', label: 'Interior materials: Altro floors, Egger laminate, Hafele hardware', meta: 'Open trade accounts. Lomond for upholstery fabric.' },
-          { id: 's7', label: 'Insulation: Stock Dodo Mat, Armaflex, Noico', meta: 'Different products for sound deadening vs thermal insulation. Buy in bulk.' },
-        ]
-      },
-      {
-        title: 'First Build', desc: 'Your proof-of-concept vehicle. This becomes your portfolio, your showroom, and your best marketing asset.',
-        badge: 'Start here',
-        items: [
-          { id: 'b1', label: 'Source donor vehicle: LWB Sprinter/Transit, 2019-2021, <80k miles', meta: 'Ex-fleet with full service history. Budget £12-18k. Start with ONE platform.', cost: '£12,000-18,000' },
-          { id: 'b2', label: 'Strip interior to bare shell', meta: 'Remove bulkhead, floor, panels. Inspect for rust, treat and seal.' },
-          { id: 'b3', label: 'Design full 3D model of the build', meta: 'Create in CAD. This becomes your template for client walkthroughs.' },
-          { id: 'b4', label: 'Complete interior fitout (your Premium tier)', meta: 'Insulation, cladding, electrics, cabinetry, desk, seating.', cost: '£8,000-16,000' },
-          { id: 'b5', label: 'Install lithium + solar power system', meta: '5kWh LiFePO4 bank, 800W roof solar, Victron MPPT + inverter.', cost: '£5,000-7,000' },
-          { id: 'b6', label: 'EV conversion (optional for first build — can defer)', meta: 'Full drivetrain swap. Consider starting with interior-only builds first.', cost: '£25,000-40,000' },
-          { id: 'b7', label: 'IVA test and registration', meta: 'Book test at your nearest DVSA centre. Prep time: 1-2 weeks.', cost: '£1,000-2,000' },
-          { id: 'b8', label: 'Professional photo and video shoot', meta: 'This replaces the generated gallery images on your website. Critical for credibility.' },
-          { id: 'b9', label: 'Document EVERYTHING — build diary, social media, time-lapses', meta: 'Instagram reels, YouTube build series, blog posts. This IS your marketing pipeline.' },
-        ]
-      },
-      {
-        title: 'Business Fundamentals', desc: 'Legal entity, banking, accounting.',
-        items: [
-          { id: 'bz1', label: 'Register Ltd company (Companies House)', meta: 'Or start as sole trader and convert later. Ltd gives liability protection.', cost: '£12-50' },
-          { id: 'bz2', label: 'Open business bank account', meta: 'Starling, Tide, or Mettle for quick setup. Separate personal and business finances.' },
-          { id: 'bz3', label: 'Register for VAT (mandatory if turnover >£90k)', meta: 'You\'ll likely hit this quickly. VAT on materials is reclaimable.' },
-          { id: 'bz4', label: 'Hire accountant with motor trade experience', meta: 'Capital allowances on tools/equipment, R&D tax credits for EV engineering.' },
-          { id: 'bz5', label: 'Set up invoicing and deposit system (Stripe integration on website)', meta: 'Take 25-30% non-refundable deposit to secure build slot.' },
-          { id: 'bz6', label: 'Draft standard terms and conditions / build contract', meta: 'Cover scope of work, payment milestones, change order process, warranty terms.' },
-        ]
-      },
-      {
-        title: 'Marketing & Sales Pipeline', desc: 'Turn the website into a lead-generation machine.',
-        items: [
-          { id: 'mk1', label: 'Replace generated gallery images with real build photos', meta: 'Your first build photos are the single highest-impact website update.' },
-          { id: 'mk2', label: 'Set up Google Business Profile', meta: 'Vanworks EV Office, Bristol. Add photos, opening hours, reviews.' },
-          { id: 'mk3', label: 'Create Instagram and YouTube accounts', meta: 'Build diary content, before/after reveals, behind-the-scenes workshop footage.' },
-          { id: 'mk4', label: 'Join van life and EV communities', meta: 'Reddit: r/vandwellers, r/electricvehicles. Facebook groups. Forum sponsorships.' },
-          { id: 'mk5', label: 'Attend van life shows and EV expos', meta: 'The Van Life Show, Fully Charged Live, Camper Van & Motorhome Show.' },
-          { id: 'mk6', label: 'Set up email newsletter (Mailchimp/Buttondown)', meta: 'Capture leads from website, send monthly build updates.' },
-          { id: 'mk7', label: 'SEO: Target "van conversion UK", "electric van conversion", "van office conversion"', meta: 'Add a blog section to the website. Write build case studies.' },
-        ]
-      },
-      {
-        title: 'Financial Planning', desc: 'Startup costs and first-year projections.',
-        items: [
-          { id: 'fin1', label: 'Calculate total startup capital required', meta: 'Workshop setup + equipment + first donor vehicle + 6 months operating costs. Realistically £80-150k.' },
-          { id: 'fin2', label: 'Explore funding: Start Up Loan (gov.uk), R&D grants, angel investment', meta: 'Start Up Loans offer up to £25k at 6% fixed. Innovate UK may fund EV R&D.' },
-          { id: 'fin3', label: 'Build financial model: unit economics per build tier', meta: 'Cost of materials + labour hours + overheads + margin = sell price per tier.' },
-          { id: 'fin4', label: 'Set pricing that delivers 20-30% gross margin', meta: 'Interior only: sell £25-45k. Full build: sell £80-120k. EV conversion add: +£35-50k.' },
-          { id: 'fin5', label: 'Plan cash flow: deposits → milestone payments → final balance', meta: 'Never start a build without deposit. 25% deposit, 25% at shell, 25% at fitout, 25% at handover.' },
-        ]
-      },
-      {
-        title: 'Growth Milestones', desc: 'Scaling from first build to a real operation.',
-        items: [
-          { id: 'g1', label: 'Complete Build #1 (proof of concept)', meta: 'Target: 12-16 weeks from shell to keys.' },
-          { id: 'g2', label: 'Secure first 3 paying customers', meta: 'Use build wizard enquiries + personal network + social media presence.' },
-          { id: 'g3', label: 'Establish repeatable build process and templates', meta: 'Document standard operating procedures for each tier. Reduce per-build time.' },
-          { id: 'g4', label: 'Hire second fabricator to run parallel builds', meta: 'When you have 3+ builds in the pipeline. Aim for 2 bays running simultaneously.' },
-          { id: 'g5', label: 'Achieve 10 completed builds with testimonials and case studies', meta: 'This is the credibility threshold. Website testimonials become real.' },
-          { id: 'g6', label: 'Explore rail company partnerships (HotDesk Rail crossover)', meta: 'Decommissioned train carriages → stationary office pods. Same interior skills, new market.' },
-        ]
-      },
+      { titleKey: 'rm_sec_f', descKey: 'rm_sec_f_desc', items: [
+        { id: 'f1', labelKey: 'rm_f1', metaKey: 'rm_f1_m', cost: '£1,500-3,000/mo' },
+        { id: 'f2', labelKey: 'rm_f2', metaKey: 'rm_f2_m', cost: '£3,000-8,000' },
+        { id: 'f3', labelKey: 'rm_f3', metaKey: 'rm_f3_m' },
+        { id: 'f4', labelKey: 'rm_f4', metaKey: 'rm_f4_m' },
+        { id: 'f5', labelKey: 'rm_f5', metaKey: 'rm_f5_m', cost: '£3,000-6,000' },
+      ]},
+      { titleKey: 'rm_sec_eq', descKey: 'rm_sec_eq_desc', items: [
+        { id: 'eq1', labelKey: 'rm_eq1', cost: '£8,000-15,000' },
+        { id: 'eq2', labelKey: 'rm_eq2', metaKey: 'rm_eq2_m', cost: '£5,000-10,000' },
+        { id: 'eq3', labelKey: 'rm_eq3', cost: '£2,000-5,000' },
+        { id: 'eq4', labelKey: 'rm_eq4', cost: '£3,000-5,000' },
+        { id: 'eq5', labelKey: 'rm_eq5', metaKey: 'rm_eq5_m', cost: '£500-2,000' },
+      ]},
+      { titleKey: 'rm_sec_t', descKey: 'rm_sec_t_desc', items: [
+        { id: 't1', labelKey: 'rm_t1', metaKey: 'rm_t1_m' }, { id: 't2', labelKey: 'rm_t2', metaKey: 'rm_t2_m' },
+        { id: 't3', labelKey: 'rm_t3', metaKey: 'rm_t3_m' }, { id: 't4', labelKey: 'rm_t4', metaKey: 'rm_t4_m' },
+        { id: 't5', labelKey: 'rm_t5', metaKey: 'rm_t5_m' },
+      ]},
+      { titleKey: 'rm_sec_c', descKey: 'rm_sec_c_desc', badgeKey: 'rm_badge_critical', items: [
+        { id: 'c1', labelKey: 'rm_c1', metaKey: 'rm_c1_m' }, { id: 'c2', labelKey: 'rm_c2', metaKey: 'rm_c2_m' },
+        { id: 'c3', labelKey: 'rm_c3', metaKey: 'rm_c3_m' }, { id: 'c4', labelKey: 'rm_c4', metaKey: 'rm_c4_m', cost: '£500-1,500/yr' },
+        { id: 'c5', labelKey: 'rm_c5', metaKey: 'rm_c5_m', cost: '£1,000-3,000/yr' }, { id: 'c6', labelKey: 'rm_c6', metaKey: 'rm_c6_m', cost: '£400-1,000/yr' },
+        { id: 'c7', labelKey: 'rm_c7', metaKey: 'rm_c7_m', cost: '£1,500-3,000/yr' }, { id: 'c8', labelKey: 'rm_c8', metaKey: 'rm_c8_m' },
+      ]},
+      { titleKey: 'rm_sec_s', descKey: 'rm_sec_s_desc', items: [
+        { id: 's1', labelKey: 'rm_s1', metaKey: 'rm_s1_m' }, { id: 's2', labelKey: 'rm_s2', metaKey: 'rm_s2_m' },
+        { id: 's3', labelKey: 'rm_s3', metaKey: 'rm_s3_m' }, { id: 's4', labelKey: 'rm_s4', metaKey: 'rm_s4_m' },
+        { id: 's5', labelKey: 'rm_s5', metaKey: 'rm_s5_m' }, { id: 's6', labelKey: 'rm_s6', metaKey: 'rm_s6_m' },
+        { id: 's7', labelKey: 'rm_s7', metaKey: 'rm_s7_m' },
+      ]},
+      { titleKey: 'rm_sec_b', descKey: 'rm_sec_b_desc', badgeKey: 'rm_badge_start', items: [
+        { id: 'b1', labelKey: 'rm_b1', metaKey: 'rm_b1_m', cost: '£12,000-18,000' }, { id: 'b2', labelKey: 'rm_b2', metaKey: 'rm_b2_m' },
+        { id: 'b3', labelKey: 'rm_b3', metaKey: 'rm_b3_m' }, { id: 'b4', labelKey: 'rm_b4', metaKey: 'rm_b4_m', cost: '£8,000-16,000' },
+        { id: 'b5', labelKey: 'rm_b5', metaKey: 'rm_b5_m', cost: '£5,000-7,000' }, { id: 'b6', labelKey: 'rm_b6', metaKey: 'rm_b6_m', cost: '£25,000-40,000' },
+        { id: 'b7', labelKey: 'rm_b7', metaKey: 'rm_b7_m', cost: '£1,000-2,000' }, { id: 'b8', labelKey: 'rm_b8', metaKey: 'rm_b8_m' },
+        { id: 'b9', labelKey: 'rm_b9', metaKey: 'rm_b9_m' },
+      ]},
+      { titleKey: 'rm_sec_bz', descKey: 'rm_sec_bz_desc', items: [
+        { id: 'bz1', labelKey: 'rm_bz1', metaKey: 'rm_bz1_m', cost: '£12-50' }, { id: 'bz2', labelKey: 'rm_bz2', metaKey: 'rm_bz2_m' },
+        { id: 'bz3', labelKey: 'rm_bz3', metaKey: 'rm_bz3_m' }, { id: 'bz4', labelKey: 'rm_bz4', metaKey: 'rm_bz4_m' },
+        { id: 'bz5', labelKey: 'rm_bz5', metaKey: 'rm_bz5_m' }, { id: 'bz6', labelKey: 'rm_bz6', metaKey: 'rm_bz6_m' },
+      ]},
+      { titleKey: 'rm_sec_mk', descKey: 'rm_sec_mk_desc', items: [
+        { id: 'mk1', labelKey: 'rm_mk1', metaKey: 'rm_mk1_m' }, { id: 'mk2', labelKey: 'rm_mk2', metaKey: 'rm_mk2_m' },
+        { id: 'mk3', labelKey: 'rm_mk3', metaKey: 'rm_mk3_m' }, { id: 'mk4', labelKey: 'rm_mk4', metaKey: 'rm_mk4_m' },
+        { id: 'mk5', labelKey: 'rm_mk5', metaKey: 'rm_mk5_m' }, { id: 'mk6', labelKey: 'rm_mk6', metaKey: 'rm_mk6_m' },
+        { id: 'mk7', labelKey: 'rm_mk7', metaKey: 'rm_mk7_m' },
+      ]},
+      { titleKey: 'rm_sec_fin', descKey: 'rm_sec_fin_desc', items: [
+        { id: 'fin1', labelKey: 'rm_fin1', metaKey: 'rm_fin1_m' }, { id: 'fin2', labelKey: 'rm_fin2', metaKey: 'rm_fin2_m' },
+        { id: 'fin3', labelKey: 'rm_fin3', metaKey: 'rm_fin3_m' }, { id: 'fin4', labelKey: 'rm_fin4', metaKey: 'rm_fin4_m' },
+        { id: 'fin5', labelKey: 'rm_fin5', metaKey: 'rm_fin5_m' },
+      ]},
+      { titleKey: 'rm_sec_g', descKey: 'rm_sec_g_desc', items: [
+        { id: 'g1', labelKey: 'rm_g1', metaKey: 'rm_g1_m' }, { id: 'g2', labelKey: 'rm_g2', metaKey: 'rm_g2_m' },
+        { id: 'g3', labelKey: 'rm_g3', metaKey: 'rm_g3_m' }, { id: 'g4', labelKey: 'rm_g4', metaKey: 'rm_g4_m' },
+        { id: 'g5', labelKey: 'rm_g5', metaKey: 'rm_g5_m' }, { id: 'g6', labelKey: 'rm_g6', metaKey: 'rm_g6_m' },
+      ]},
     ];
 
     const LS_KEY = 'vw_roadmap';
@@ -301,29 +250,30 @@
 
     const render = () => {
       container.innerHTML = SECTIONS.map(sec => {
-        const badge = sec.badge ? `<span class="badge">${sec.badge}</span>` : '';
+        const badge = sec.badgeKey ? `<span class="badge">${t(sec.badgeKey)}</span>` : '';
         const items = sec.items.map(it => {
           const d = data[it.id] || {};
           const done = d.done ? ' done' : '';
           const hasNotes = d.notes ? ' has-notes' : '';
+          const meta = it.metaKey ? t(it.metaKey) : '';
           return `<div class="action${done}${hasNotes}" data-id="${it.id}">
             <div class="action-top">
               <div class="action-check" data-action="toggle"><svg viewBox="0 0 12 12" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
               <div class="action-content">
-                <div class="action-label" data-action="toggle">${it.label}</div>
-                ${it.meta ? `<div class="action-meta" data-action="note">${it.meta}</div>` : ''}
+                <div class="action-label" data-action="toggle">${t(it.labelKey)}</div>
+                ${meta ? `<div class="action-meta" data-action="note">${meta}</div>` : ''}
               </div>
               ${it.cost ? `<span class="action-cost">${it.cost}</span>` : ''}
-              <button class="note-toggle" data-action="note" title="Add note">&#9998;</button>
+              <button class="note-toggle" data-action="note" title="${t('rm_add_note')}">&#9998;</button>
             </div>
             <div class="action-notes">
-              <textarea placeholder="Add your notes here..." data-action="textarea">${d.notes || ''}</textarea>
+              <textarea placeholder="${t('rm_note_placeholder')}" data-action="textarea">${(d.notes || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
             </div>
           </div>`;
         }).join('');
         return `<div class="section">
-          <h2 class="section-title">${sec.title} ${badge}</h2>
-          <p class="section-desc">${sec.desc}</p>
+          <h2 class="section-title">${t(sec.titleKey)} ${badge}</h2>
+          <p class="section-desc">${t(sec.descKey)}</p>
           ${items}
         </div>`;
       }).join('');
@@ -334,9 +284,20 @@
       const total = allIds.length;
       const done = allIds.filter(id => data[id]?.done).length;
       const pct = total ? Math.round((done / total) * 100) : 0;
-      document.getElementById('progText').textContent = `${done} of ${total} completed`;
+      const progEl = document.getElementById('progText');
+      if (progEl) progEl.textContent = `${done} ${t('rm_of')} ${total} ${t('rm_completed')}`;
       document.getElementById('progPct').textContent = `${pct}%`;
       document.getElementById('progFill').style.width = `${pct}%`;
+    };
+
+    const updateStaticUI = () => {
+      const back = document.getElementById('rmBack');
+      if (back) back.textContent = t('rm_back');
+      const title = document.getElementById('rmTitle');
+      if (title) title.textContent = t('rm_title');
+      const desc = document.getElementById('rmDesc');
+      if (desc) desc.textContent = t('rm_desc');
+      document.title = 'VoltVan — ' + t('rm_title');
     };
 
     container.addEventListener('click', (e) => {
@@ -375,9 +336,6 @@
     render();
 
     /* ---- Shared language switcher ---- */
-    const urlLang = new URLSearchParams(location.search).get('lang');
-    let currentLang = (urlLang && ['en','uk','es'].includes(urlLang)) ? urlLang : (localStorage.getItem('vw_lang') || 'en');
-
     const setLangURL = (lang) => {
       const u = new URL(location);
       if (lang === 'en') u.searchParams.delete('lang');
@@ -389,9 +347,12 @@
       currentLang = lang;
       localStorage.setItem('vw_lang', lang);
       setLangURL(lang);
+      document.documentElement.lang = lang === 'uk' ? 'uk' : (lang === 'es' ? 'es' : 'en');
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
       const back = document.getElementById('backLink');
       if (back) back.href = lang === 'en' ? 'index.html' : `index.html?lang=${lang}`;
+      render();
+      updateStaticUI();
     };
 
     activateLang(currentLang);
