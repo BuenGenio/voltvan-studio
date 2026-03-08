@@ -71,9 +71,10 @@
     .action-check svg { width: 12px; height: 12px; opacity: 0; transition: opacity .15s; }
     .action.done .action-check svg { opacity: 1; }
     .action-content { flex: 1; min-width: 0; }
-    .action-label { font-size: .875rem; font-weight: 500; color: var(--text); transition: color .2s; }
+    .action-label { font-size: .875rem; font-weight: 500; color: var(--text); transition: color .2s; cursor: pointer; }
     .action.done .action-label { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--text-dim); }
-    .action-meta { font-size: .75rem; color: var(--text-dim); margin-top: .125rem; }
+    .action-meta { font-size: .75rem; color: var(--text-dim); margin-top: .125rem; cursor: pointer; border-radius: 4px; transition: color .2s; }
+    .action-meta:hover { color: var(--text-muted); }
     .action-cost { font-family: var(--ff-heading); font-size: .75rem; font-weight: 600; color: var(--accent); white-space: nowrap; margin-left: auto; padding-left: 1rem; }
     .action.done .action-cost { opacity: .5; }
 
@@ -274,8 +275,8 @@
             <div class="action-top">
               <div class="action-check" data-action="toggle"><svg viewBox="0 0 12 12" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
               <div class="action-content">
-                <div class="action-label">${it.label}</div>
-                ${it.meta ? `<div class="action-meta">${it.meta}</div>` : ''}
+                <div class="action-label" data-action="toggle">${it.label}</div>
+                ${it.meta ? `<div class="action-meta" data-action="note">${it.meta}</div>` : ''}
               </div>
               ${it.cost ? `<span class="action-cost">${it.cost}</span>` : ''}
               <button class="note-toggle" data-action="note" title="Add note">&#9998;</button>
